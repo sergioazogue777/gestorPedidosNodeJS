@@ -1,0 +1,44 @@
+{{>cabeza}}
+<div class="row mt-5">
+    <div class="col">
+        <form method="POST" action="/pedidos">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>ean13</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each articulos}}
+                    <tr>
+                        <td>
+                            {{this.nombre}}
+                            <input type="text" hidden class="form-control-plaintext" readonly
+                                name="articulos[{{@index}}][nombre]" value="{{this.nombre}}">
+                        </td>
+                        <td>
+                            {{this.precio}}
+                            <input type="text" hidden class="form-control-plaintext" readonly
+                                name="articulos[{{@index}}][precio]" value="{{this.precio}}">
+                        </td>
+                        <td>
+                            {{this.ean13}}
+                            <input type="text" hidden class="form-control-plaintext" readonly
+                                name="articulos[{{@index}}][ean13]" value="{{this.ean13}}">
+                        </td>
+                        <td>
+                            <input type="number"  name="articulos[{{@index}}][cantidad]" value="0">
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <input type="submit" class="btn btn-primary" value="Hacer pedido">
+        </form>
+
+    </div>
+</div>
+{{>pie}}

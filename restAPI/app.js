@@ -1,0 +1,10 @@
+const express=require("express")
+const app=express()
+const bodyParser=require("body-parser")
+app.use(bodyParser.json())
+app.use("/articulos",require("./articulo.js"))
+app.use("/pedido",require("./pedido.js"))
+app.use("/validar",require("./validar.js"))
+app.listen(2005,()=>{
+    console.log("ejecutando")
+})

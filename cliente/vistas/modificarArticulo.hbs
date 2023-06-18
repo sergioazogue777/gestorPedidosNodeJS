@@ -1,0 +1,23 @@
+{{>cabeza}}
+<div class="row mt-5">
+    <div class="col">
+        <form method="POST" action="/articulo">
+            <div class="mb-3">
+                <label for="ean" class="form-label">Ean13</label>
+                <input type="number" value="{{articulo.ean13}}" disabled class="form-control" id="ean" aria-describedby="ean">
+                <input type="number" name="ean13" value="{{articulo.ean13}}" hidden class="form-control" id="ean" aria-describedby="ean">
+            </div>
+            <div class="mb-3">
+                <label for="Nombre" class="form-label">Nombre</label>
+                <input type="text" name="nombre" class="form-control" value="{{articulo.nombre}}" id="Nombre">
+            </div>
+            <div class="mb-3">
+                <label for="Precio" class="form-label">Precio</label>
+                <input type="number" name="precio" class="form-control" value="{{articulo.precio}}" id="Precio">
+            </div>
+            <button type="submit"  class="btn btn-primary">Actualizar</button>
+        </form>
+    </div>
+</div>
+
+{{>pie}}

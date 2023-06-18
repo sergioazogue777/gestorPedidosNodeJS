@@ -1,0 +1,27 @@
+{{>cabeza}}
+<div class="row mt-5">
+    <div class="col">
+        <form method="POST" action="/crearArticulo">
+            <div class="mb-3">
+                <label for="ean" class="form-label">Ean13</label>
+                <input type="number" name="ean13" class="form-control" id="ean" aria-describedby="ean">
+            </div>
+            <div class="mb-3">
+                <label for="Nombre" class="form-label">Nombre</label>
+                <input type="text" name="nombre" class="form-control" id="Nombre">
+            </div>
+            <div class="mb-3">
+                <label for="Precio" class="form-label">Precio</label>
+                <input type="number" name="precio" class="form-control" id="Precio">
+            </div>
+            <button type="submit"  class="btn btn-primary">Actualizar</button>
+        </form>
+        {{#if aviso}}
+            <h2 class="display-1 tw-bold text-danger text-center">
+                {{aviso}}
+            </h2>
+        {{/if}}
+    </div>
+</div>
+
+{{>pie}}

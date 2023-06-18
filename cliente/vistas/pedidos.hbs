@@ -1,0 +1,39 @@
+{{>cabeza}}
+<div class="row mt-5">
+    <div class="col d-flex justify-content-end">
+        <a class="btn" href="http://localhost:8080/crearPedido">Crear pedido</a>
+
+        <a class="btn" href="http://localhost:8080/modificarArticulo">Modificar articulo</a>
+
+        <a class="btn" href="http://localhost:8080/crearArticulo">Agregar articulo</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Produtos</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each pedidos}}
+                <tr>
+                    <td>{{this.fecha}}</td>
+                    <td>
+                        <ul class="list-group">
+                            {{#each this.articulos}}
+                                <li class="list-group-item">
+                                    {{this.nombre}}&nbsp;x&nbsp;{{this.cantidad}}
+                                </li>
+                            {{/each}}
+                        </ul>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+{{>pie}}
