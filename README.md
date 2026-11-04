@@ -1,5 +1,7 @@
 # gestorPedidosNodeJS
 
+Este proyecto nació como ejercicio del primer curso del ciclo de Desarrollo de Aplicaciones Web (DAW), cuando estaba aprendiendo Node.js, Express y la separación entre cliente y API. La versión actual incluye una revisión posterior de documentación, validaciones y seguridad.
+
 Aplicación de gestión de artículos y pedidos con interfaz Handlebars, API Express y persistencia en Cloud Firestore.
 
 ## Tecnologías
