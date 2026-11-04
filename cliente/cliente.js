@@ -6,7 +6,7 @@ router.get("/login",(req,res)=>{
     res.render("login")
 })
 router.post("/login", (req,res)=>{
-    usuario={correo:req.body.correo,contrasenya:req.body.contrasenya}
+    const usuario={correo:req.body.correo,contrasenya:req.body.contrasenya}
     axios.post("http://localhost:2005/validar",{usuario}).then(respuesta=>{
         if(respuesta.data.token){
             req.session.token=respuesta.data.token
@@ -14,6 +14,8 @@ router.post("/login", (req,res)=>{
         }else{
             res.render("login",{status:"Usuario no encontrado"})
         }
+    }).catch(err => {
+        res.status(err.response?.status === 401 ? 401 : 502).render("login", {status: "No se pudo iniciar sesión"});
     })
 })
 
@@ -166,22 +168,24 @@ router.post("/pedidos",(req,res)=>{
             }
         }
         const date1=new Date()
-        let fechaHoy=date1.getUTCDate()+"/"+(date1.getMonth()+1)+"/"+date1.getUTCFullYear()
+        let fechaHoy=date1.getDate()+"/"+(date1.getMonth()+1)+"/"+date1.getFullYear()
         let articulos=[]
-        req.body.articulos.forEach(element => {
-            if(element.cantidad>0){
+        const items = Array.isArray(req.body.articulos) ? req.body.articulos : [];
+        items.forEach(element => {
+            if(Number.isInteger(Number(element.cantidad)) && Number(element.cantidad)>0){
                 articulos.push(element)
             }
         });
+        if (!articulos.length) return res.status(400).send("Selecciona al menos un artículo");
         axios.post("http://localhost:2005/pedido",{fecha:fechaHoy,articulos},config).then(response=>{
             if(response.data.status=="ok"){
                 res.redirect("/pedidos")
             }else{
                 res.redirect("/pedidos")
             }
-        })
+        }).catch(() => res.status(502).send("No se pudo guardar el pedido"))
     }else{
-        redirect("/login")
+        res.redirect("/login")
     }
     
 })

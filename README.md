@@ -1,8 +1,58 @@
 # gestorPedidosNodeJS
-Proyecto pequeño de gestión de pedidos con node js.
-# Requisitos
--Tener instalado node js
-# Funcionamiento 
-Para hacer que funcione la web deberemos de instalar las dependencias en cada carpeta ejecutando
-dentro de cada carpeta el comando "npm i" seguido de "npm run dev" para ejecutar el proyecto.
-Para acceder pondremos en nuestro navegador web localhost:8080.
+
+Aplicación de gestión de artículos y pedidos con interfaz Handlebars, API Express y persistencia en Cloud Firestore.
+
+## Tecnologías
+
+- **Backend:** Node.js, Express y Firebase Admin SDK (Cloud Firestore).
+- **Frontend:** Express, Handlebars (HBS) y HTML/CSS.
+- **Autenticación:** sesiones para el cliente y JWT para las peticiones a la API.
+
+## Estructura
+
+- `cliente/`: aplicación web y vistas Handlebars.
+- `restAPI/`: API REST y acceso a Firestore.
+
+## Ejecución local
+
+1. Instala Node.js y npm.
+2. Configura un proyecto Firebase con Cloud Firestore y descarga una **nueva** clave de cuenta de servicio. Guárdala fuera del repositorio.
+3. Define las variables de entorno necesarias (consulta `.env.example`). Node.js no carga automáticamente este archivo; exporta las variables en tu terminal o utiliza un gestor de entorno.
+4. En dos terminales distintas ejecuta:
+
+   ```bash
+   cd restAPI
+   npm ci
+   npm run dev
+   ```
+
+   ```bash
+   cd cliente
+   npm ci
+   npm run dev
+   ```
+
+5. Abre http://localhost:8080. La API utiliza http://localhost:2005.
+
+> Se necesitan datos de prueba en Firestore para utilizar las funciones. El proyecto no incluye una base de datos preparada ni credenciales.
+
+## Configuración
+
+- `GOOGLE_APPLICATION_CREDENTIALS`: ruta absoluta al JSON de la cuenta de servicio de Firebase (fuera del repositorio).
+- `JWT_SECRET`: clave aleatoria y privada para firmar/verificar tokens. Debe estar configurada en el proceso de la API.
+- `SESSION_SECRET`: clave aleatoria y privada para las sesiones del cliente.
+- `PORT`: puerto opcional del cliente (predeterminado: 8080).
+
+## Seguridad y limitaciones
+
+Este proyecto es académico y **no está listo para producción**. Las contraseñas nuevas se almacenan con scrypt y sal aleatoria, y las contraseñas antiguas se actualizan al iniciar sesión correctamente. **Hasta que todas se migren, los registros antiguos siguen expuestos en la base de datos.** Las sesiones usan el almacén en memoria predeterminado de Express, no apto para producción. Se recomienda completar la validación de entradas, añadir protección CSRF, pruebas de integración, límites de peticiones y control de acceso granular.
+
+Se han retirado los JSON de credenciales de la versión actual del repositorio, pero **siguen presentes en el historial de Git**. Es imprescindible revocar/rotar las claves en Google Cloud y, posteriormente, limpiar el historial de forma coordinada. No reutilices ninguna clave antigua.
+
+## Pruebas
+
+Con las dependencias de `restAPI` instaladas, ejecuta `node --test *.test.js` desde esa carpeta. GitHub Actions verifica la sintaxis de los archivos JavaScript y ejecuta las pruebas unitarias. **Estas comprobaciones no prueban una conexión real con Firestore.**
+
+## Estado
+
+Proyecto académico conservado como muestra de arquitectura cliente/API. Hay tareas de seguridad y pruebas pendientes antes de considerarlo una aplicación desplegable.
